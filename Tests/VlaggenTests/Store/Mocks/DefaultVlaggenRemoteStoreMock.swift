@@ -8,7 +8,7 @@ final class DefaultVlaggenRemoteStoreMock: VlaggenRemoteStoreLogic {
     var invokedListCount = 0
     var stubbedListCompletionResult: (Result<[ParameterResponse], Error>, Void)?
 
-    func list(completion: @escaping (Result<[ParameterResponse], Error>) -> Void) {
+    func list(conditions: [String: String], completion: @escaping (Result<[ParameterResponse], Error>) -> Void) {
         invokedList = true
         invokedListCount += 1
         if let result = stubbedListCompletionResult {

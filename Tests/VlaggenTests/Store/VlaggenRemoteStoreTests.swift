@@ -22,7 +22,7 @@ final class VlaggenRemoteStoreTests: XCTestCase {
         mockClient.stubbedListCompletionResult = (.success(parameters), Void())
 
         // When
-        sut.list { (result) in
+        sut.list(conditions: [:]) { (result) in
             // Then
             XCTAssertResult(result, contains: parameters)
         }
@@ -33,7 +33,7 @@ final class VlaggenRemoteStoreTests: XCTestCase {
         mockClient.stubbedListCompletionResult = (.failure(.requestMapping("error")), Void())
 
         // When
-        sut.list { (result) in
+        sut.list(conditions: [:]) { (result) in
             // Then
             XCTAssertResult(result, contains: MoyaError.requestMapping("error"))
         }

@@ -4,7 +4,7 @@ import VlaggenNetworkModels
 
 public protocol VlaggenControllerLogic {
 
-    func fetch(completion: @escaping (Result<[Parameter],Error>) -> Void)
+    func fetch(conditions: [String: String], completion: @escaping (Result<[Parameter],Error>) -> Void)
 
     func get<T: Decodable>(key: String, as: T.Type) -> T?
     func get<T: Decodable>(key: String, as: T.Type, fallback: T) -> T
@@ -32,8 +32,8 @@ public final class VlaggenController: VlaggenControllerLogic {
         }
     }
 
-    public func fetch(completion: @escaping (Result<[Parameter], Error>) -> Void) {
-        remoteStore.list { [weak self] (result) in
+    public func fetch(conditions: [String: String], completion: @escaping (Result<[Parameter], Error>) -> Void) {
+        remoteStore.list(conditions: conditions) { [weak self] (result) in
             switch result {
                 case .success(let responses):
                     self?.memoryStore.store(parameters: responses)

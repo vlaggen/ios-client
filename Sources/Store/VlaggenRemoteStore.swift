@@ -4,7 +4,7 @@ import VlaggenNetworkModels
 import Moya
 
 protocol VlaggenRemoteStoreLogic {
-    func list(completion: @escaping (Result<[ParameterResponse], Error>) -> Void)
+    func list(conditions: [String: String], completion: @escaping (Result<[ParameterResponse], Error>) -> Void)
 }
 
 final class VlaggenRemoteStore: VlaggenRemoteStoreLogic {
@@ -14,8 +14,8 @@ final class VlaggenRemoteStore: VlaggenRemoteStoreLogic {
         self.client = client
     }
 
-    func list(completion: @escaping (Result<[ParameterResponse], Error>) -> Void) {
-        client.list { (result) in
+    func list(conditions: [String: String], completion: @escaping (Result<[ParameterResponse], Error>) -> Void) {
+        client.list(conditions: conditions) { (result) in
             switch result {
                 case .success(let parameters):
                     completion(.success(parameters))

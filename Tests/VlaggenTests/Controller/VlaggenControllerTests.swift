@@ -67,7 +67,7 @@ final class VlaggenControllerTests: XCTestCase {
 
     func test_fetch_shouldInvokeRemoteStoreList() {
         // When
-        sut.fetch { _ in }
+        sut.fetch(conditions: [:]) { _ in }
 
         // Then
         XCTAssertEqual(mockRemoteStore.invokedListCount, 1)
@@ -78,7 +78,7 @@ final class VlaggenControllerTests: XCTestCase {
         mockRemoteStore.stubbedListCompletionResult = (.success([]), Void())
 
         // When
-        sut.fetch { _ in }
+        sut.fetch(conditions: [:]) { _ in }
 
         // Then
         XCTAssertEqual(mockMemoryStore.invokedStoreCount, 2)
@@ -95,7 +95,7 @@ final class VlaggenControllerTests: XCTestCase {
 
         // When
         var sutResult: Result<[Parameter], Error>? = nil
-        sut.fetch { (result) in
+        sut.fetch(conditions: [:]) { (result) in
             sutResult = result
         }
 
